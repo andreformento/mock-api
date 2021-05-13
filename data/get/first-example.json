@@ -8,6 +8,10 @@
       {
         "name": "Eddie",
         "band": "Iron Maiden"
+      },
+      {
+         "name":"Snaggletooth",
+         "band":"Motorhead"
       }
     ]
   }
