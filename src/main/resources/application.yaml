@@ -1,1 +1,3 @@
-
+mockRepository:
+  host: "https://github.com/andreformento/mock-api"
+  basePath: "data"
