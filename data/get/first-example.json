@@ -1,0 +1,18 @@
+{
+  "response": {
+    "body": [
+      {
+        "name": "André Formento",
+        "band": "ANTI-FLAG"
+      },
+      {
+        "name": "Eddie",
+        "band": "Iron Maiden"
+      },
+      {
+         "name":"Snaggletooth",
+         "band":"Motorhead"
+      }
+    ]
+  }
+}

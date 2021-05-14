@@ -1,0 +1,20 @@
+{
+   "request":{
+      "query":{
+         "filter": "less"
+      }
+   },
+   "response":{
+      "body":[
+         {
+            "name":"André Formento",
+            "band":"ANTI-FLAG"
+         },
+         {
+            "name":"Eddie",
+            "band":"Iron Maiden"
+         }
+      ]
+   },
+   "httpStatus": 200
+}
