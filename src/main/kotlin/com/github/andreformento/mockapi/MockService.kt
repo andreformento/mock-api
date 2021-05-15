@@ -10,19 +10,14 @@ import org.springframework.web.util.UriBuilder
 import reactor.core.publisher.Mono
 
 @Service
-class MockService(val client: WebClient) {
+class MockService(val client: WebClient, val mockUrlBuilder: MockUrlBuilder) {
     private val logger = LoggerFactory.getLogger(javaClass)
 
-    @Value("\${mockRepository.basePath}")
-    lateinit var mockRepositoryBasePath: String
-
-    fun getResponse(httpMethod: HttpMethod, path: String, requestBodyRaw: Any?): Mono<MockResponse> {
-        val uri = "/${mockRepositoryBasePath}/${httpMethod.name.toLowerCase()}$path"
-        logger.debug("uri $uri")
+    fun getResponse(mockRequest: MockRequest): Mono<MockResponse> {
         val bodyResponse = client
             .get()
             .uri { builder: UriBuilder ->
-                builder.path(uri)
+                builder.path(mockUrlBuilder.createMockUrl(mockRequest).url)
 //                    .queryParam("id", cityId.cityId)
 //                    .queryParam("APPID", config.apiKey)
                     .build()
@@ -33,7 +28,7 @@ class MockService(val client: WebClient) {
 
         return bodyResponse.map{ r ->
             logger.warn("response = $r")
-            MockResponse(200, r)
+            MockResponse(200, MockData(r.toString()))
         }
     }
 }

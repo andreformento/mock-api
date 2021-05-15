@@ -1,5 +1,7 @@
-package com.github.andreformento.mockapi
+package com.github.andreformento.mockapi.api
 
+import com.github.andreformento.mockapi.MockRequest
+import com.github.andreformento.mockapi.MockService
 import org.springframework.http.HttpMethod
 import org.springframework.http.server.reactive.ServerHttpRequest
 import org.springframework.web.bind.annotation.*
@@ -8,8 +10,8 @@ import org.springframework.web.bind.annotation.*
 @RequestMapping("/api")
 class MockController(val mockService: MockService) {
 
-    private fun api(httpMethod: HttpMethod, path: String, requestBodyRaw: Any?): Any {
-        return mockService.getResponse(httpMethod, path, requestBodyRaw)
+    private fun api(httpMethod: HttpMethod, path: String, bodyText: String?): Any {
+        return mockService.getResponse(MockRequest.create(httpMethod, path, bodyText))
     }
 
     @RequestMapping(value = ["{*path}"], method = [RequestMethod.GET])
@@ -21,8 +23,8 @@ class MockController(val mockService: MockService) {
         value = ["{*path}"],
         method = [RequestMethod.POST, RequestMethod.PUT, RequestMethod.PATCH, RequestMethod.DELETE]
     )
-    fun apiBody(request: ServerHttpRequest, @PathVariable path: String, @RequestBody(required = false) requestBodyRaw: Any?): Any {
-        return api(request.method!!, path, requestBodyRaw)
+    fun apiBody(request: ServerHttpRequest, @PathVariable path: String, @RequestBody(required = false) bodyText: String?): Any {
+        return api(request.method!!, path, bodyText)
     }
 
 }
