@@ -5,7 +5,7 @@ import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
 
 private val objectMapper = jacksonObjectMapper()
 
-data class MockData(val value: String) {
+data class MockBody(val value: String?) {
 
     private fun isSubset(subset: JsonNode, set: JsonNode): Boolean {
         if (!subset.nodeType.equals(set.nodeType)) return false
@@ -24,7 +24,7 @@ data class MockData(val value: String) {
         }
     }
 
-    fun isSubset(set: MockData): Boolean {
-        return isSubset(objectMapper.readTree(value), objectMapper.readTree(set.value))
-    }
+    fun isSubset(set: MockBody): Boolean =
+        isSubset(objectMapper.readTree(value ?: ""), objectMapper.readTree(set.value ?: ""))
+
 }

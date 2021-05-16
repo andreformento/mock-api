@@ -1,46 +1,27 @@
 package com.github.andreformento.mockapi
 
-import org.springframework.http.HttpMethod
-
-data class MockQueryParameter(
-    val key: String,
-    val values: List<Any>
-)
-
-
-//sealed class MockData()
-//data class ObjectData(val number: Double) : MockData()
-//data class ListData(val e1: MockData, val e2: MockData) : MockData()
-//object EmptyData : MockData
-
-
-/*
-data class MockRequest(
-    val httpMethodName: String,
-    val path: String,
-    val queryParameters: List<MockQueryParameter>,
-    val data: MockData
-) {
-    constructor(httpMethod: HttpMethod, path: String, requestBodyRaw: Any?) : this(name) {
-        parent.children.add(this)
-    }
-}
-*/
+import com.fasterxml.jackson.databind.JsonNode
+import org.springframework.http.server.reactive.ServerHttpRequest
+import org.springframework.util.MultiValueMap
 
 class MockRequest(
     val httpMethodName: String,
     val path: String,
-    val queryParameters: List<MockQueryParameter>,
-    val data: MockData
+    val queryParams: MultiValueMap<String, String>,
+    val body: MockBody
 ) {
     companion object Factory {
-        fun create(httpMethod: HttpMethod, path: String, requestBodyRaw: String?): MockRequest =
-            MockRequest(httpMethod.name.toLowerCase(), path, arrayListOf(), MockData(requestBodyRaw?:""))
+        fun create(
+            request: ServerHttpRequest, path: String, bodyText: String? = null
+        ): MockRequest =
+            MockRequest(request.methodValue.toLowerCase(), path, request.queryParams, MockBody(bodyText))
 
     }
 }
 
-data class MockResponse(
-    val httpStatusCode: Int,
-    val data: MockData
+data class MockDataResponse(
+    val httpStatusCode: Int?,
+    val body: JsonNode?
 )
+
+data class MockData(val response: MockDataResponse)

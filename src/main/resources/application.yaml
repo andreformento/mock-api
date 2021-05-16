@@ -1,3 +1,4 @@
 mockRepository:
-  host: "https://github.com/andreformento/mock-api"
-  basePath: "data"
+  providerStrategy: "github"
+  github:
+    host: "https://api.github.com/repos/andreformento/mock-api/contents/data"

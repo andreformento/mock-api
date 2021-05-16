@@ -13,7 +13,7 @@ Execute:
 ## Examples:
 - GET
 ```shell
-http 'http://localhost:8080/api/mockadsasd/adasda'
+http 'http://localhost:8080/mockadsasd/adasda'
 ```
 response:
 ```json
@@ -24,7 +24,7 @@ response:
 
 - POST without body
 ```shell
-http POST 'http://localhost:8080/api/mockadsasd/adasda'
+http POST 'http://localhost:8080/mockadsasd/adasda'
 ```
 response
 ```json
@@ -35,7 +35,7 @@ response
 
 - POST with body
 ```shell
-http POST 'http://localhost:8080/api/mockadsasd/adasda' <<<'{"my_body":"value"}'
+http POST 'http://localhost:8080/mockadsasd/adasda' <<<'{"my_body":"value"}'
 ```
 response
 ```json
