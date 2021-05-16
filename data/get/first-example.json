@@ -13,6 +13,7 @@
          "name":"Snaggletooth",
          "band":"Motorhead"
       }
-    ]
+    ],
+    "http_status_code": 201
   }
 }
